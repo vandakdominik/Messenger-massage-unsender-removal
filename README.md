@@ -1,5 +1,6 @@
 # Facebook-Messenger-massage-unsender-removal
-Removes massages on facebook messanger [https://www.messenger.com/]
+Unsends then removes massages on facebook messanger [https://www.messenger.com/] (for both sides) 
+(other side will still see there massages and your unsent massages (not there contents) only that the massage was unsent)
 
 works as of 8/22/2025 (25.8.2025)
 
@@ -29,7 +30,7 @@ messenger:
   (if its taked down from chrome web store/or you want latest version you should still be able to use it by switching to developer mode in the extension tab, and addint the project manualy (downloading github files and loading them into chrome))
   [https://github.com/theahura/shoot-the-messenger]
 
-instagram:
+instagram: (works as of 8/22/2025 (25.8.2025) for me)
   the setup was bit more complicated and it didnt work for me in chrome (the chrome web store took down Violentmonkey (required dependency))
   i managed to make it work in firefox (recommend) (just follow the guide in in README)
   [https://github.com/thoughtsunificator/instagram-dm-unsender/blob/master/README.md]
