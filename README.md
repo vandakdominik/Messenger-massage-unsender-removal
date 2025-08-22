@@ -23,6 +23,11 @@ right click, inspect, console (facebook has massage in console that says its uns
 HOW TO STOP:
 just reload the page (Ctrl + R)
 
+HOW IT WORKS: (as far as i know)
+it scans the dom using query selectors and clicks the buttons manualy (same as user)
+it finds the root section of page (where the massages are) finds massages in them, simulates mouse hower (without it you cant select the show more menu (hamburger menu) then clicks the button) (i added so it scans for bot remove and unsent buttons and picks which one is relevant.), then clicks the remove button (you want to make sure for you its default to unsent for everyone (if facebook canged the ui so its remove for you it wont work correctly and it's only going to hide the massage for you but not unsent for other side first (they will still see the massage and its contents))), if the unsent/removal was unsucessfull it removes it from dom (if you reload the page the massages will still be there)
+!if there is issue its likely with selectors due to change in UI!
+
 OTHER PROJECTS OF THIS KIND (not my):
 messenger:
   shoot-the-messenger 
