@@ -7,6 +7,11 @@ works as of 8/22/2025 (25.8.2025)
 original project (you might want to read the the comments under the code first):
 [https://gist.github.com/innateessence/43706a983b0f6cbf3b16058ada373baa]
 
+i just fixed a few lines of code so its up to date with new UI changes
+(i dont mind what you do with it BUT im NOT the original author)
+(if the autor has any issues with this repositary please contact me)
+(i likely won't maintain the project long term but if you submit changes i dont have issues with it)
+
 future changes might break it again
 !!!make sure that if you press unsent/remove massage for yourself the default option is "unsent for everyone" it dose not check or change it. if the UI changes it might just remove the massages for you (other parson will still see it) (if you run it you should be able to see the unsent massage before it gets removed (if not it might not work properly) text "You unsent the massage")!!!
 !some massages will state "Error displayin this massage" they were failed to unsent if you refresh the page they should load properly and if you rerun should delete those as well! (those massages should not cause any other problems)
@@ -17,11 +22,6 @@ right click, inspect, console (facebook has massage in console that says its uns
 (this code should be safe as far as i know but checking unknown code for safety is still good practice)
 HOW TO STOP:
 just reload the page (Ctrl + R)
-
-i just fixed a few lines of code so its up to date with new UI changes
-(i dont mind what you do with it BUT im NOT the original author)
-(if the autor has any issues with this repositary please contact me)
-(i likely won't maintain the project long term but if you submit changes i dont have issues with it)
 
 OTHER PROJECTS OF THIS KIND (not my):
 messenger:
