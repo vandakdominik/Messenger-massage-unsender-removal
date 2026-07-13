@@ -14,7 +14,7 @@ async function sleep(ms) {
 }
 
 async function __getLastMessageMoreIcon() {
-  const elements = document.querySelectorAll('div[aria-label="More"]')
+  const elements = document.querySelectorAll('div[aria-label="More actions"]')
   const lastElement = elements[elements.length - 1]
   return lastElement
 }
@@ -154,13 +154,10 @@ async function deleteLastMessage() {
 }
 
 async function getAllMessageElements() {
-  let conversationRoot = await __findElementsByAriaLabelSubstring("Conversation with")
-  if (conversationRoot.length === 0) {
-    console.warn("No conversation root found")
-    return
+  const elems = document.querySelectorAll('div[aria-roledescription="message"]');
+  if(elems === 0) {
+    throw "could not find any messages";
   }
-  conversationRoot = conversationRoot[0]
-  const elems = conversationRoot.querySelectorAll('div[role="row"]')
   return Array.from(elems)
 }
 
