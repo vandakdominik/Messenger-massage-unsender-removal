@@ -3,11 +3,7 @@ const SHORT_DELAY = 200;
 const MEDIUM_DELAY = 500;
 const LONG_DELAY = 1000;
 
-let messageChatIdx = 0
 let isRunning = false
-let exceptionsInARow = 0
-
-const exceptionsInARowUntilNextChat = 40
 
 async function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -37,22 +33,6 @@ async function __unsendMessage() {
 async function __findElementsByAriaLabel(label) {
   const elements = document.querySelectorAll(`[aria-label="${label}"]`);
   return Array.from(elements);
-}
-
-async function __findElementsByAriaLabelSubstring(substring) {
-  const elements = document.querySelectorAll('[aria-label]');
-  const retval = Array.from(elements).filter(el =>
-    el.getAttribute('aria-label').includes(substring)
-  );
-  return retval
-}
-
-async function __findElementByAriaLabel(label) {
-  const elements = document.querySelectorAll(`[aria-label="${label}"]`);
-  if (Array.isArray(elements) && elements.length > 0) {
-    return elements[0]
-  }
-  return elements
 }
 
 async function __getRemoveButton() {
@@ -172,80 +152,26 @@ async function removeErrorMessages() {
   })
 }
 
-async function clickOnChat(chatElem) {
-  const iterations = 5
-  for (let i = 0; i < iterations; i++) {
-    chatElem = chatElem.childNodes[0]
-  }
-  chatElem.scrollIntoView()
-  await sleep(SHORT_DELAY)
-  chatElem.click()
-  await sleep(LONG_DELAY)
-}
-
-async function getMessageChats() {
-  let elem = await __findElementsByAriaLabel("Chats")
-  const idx = elem.length - 1
-  elem = elem?.[idx]
-  while (elem.childNodes.length == 2 || elem.childNodes.length == 1) {
-    const idx = elem.childNodes.length - 1
-    const target = elem?.childNodes?.[idx]
-    if (target) {
-      elem = target
-    }
-  }
-  return Array.from(elem.childNodes)
-}
-
-async function Main(loopForever = false) {
+async function Main() {
   isRunning = true
   console.log("Starting... to stop, issue `isRunning = false`")
   while (isRunning) {
 
-    if (exceptionsInARow > exceptionsInARowUntilNextChat) {
-      messageChatIdx++
-      try {
-        // we probably unsent all the messages
-        const chats = await getMessageChats()
-        if (messageChatIdx >= chats.length) {
-          console.log("Processed all chats!")
-          isRunning = false
-          return
-        }
-        await clickOnChat(chats[messageChatIdx])
-        exceptionsInARow = 0
-
-      } catch (e) {
-        console.log(e)
-        exceptionsInARow++
-      }
+    if((await getAllMessageElements()).length === 0) {
+      isRunning = false;
+      break;
     }
 
     try {
       console.count("Deleting last message")
       await deleteLastMessage()
-      exceptionsInARow = 0
     } catch (e) {
       console.log(e)
-      exceptionsInARow++
     }
     await sleep(SHORT_DELAY)
     await removeErrorMessages()
   }
-  if (loopForever) {
-    await Restart(loopForever)
-  }
   console.log("Done!")
-}
-
-async function Restart(loopForever = false) {
-  // reset globals
-  messageChatIdx = 0
-  isRunning = false
-  exceptionsInARow = 0
-  const chats = await getMessageChats()
-  await clickOnChat(chats[messageChatIdx]) // go back to first chat
-  await Main(loopForever) // process it again
 }
 
 //starts the removal
